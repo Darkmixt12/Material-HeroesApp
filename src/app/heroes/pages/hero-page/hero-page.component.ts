@@ -20,11 +20,13 @@ export class HeroPageComponent implements OnInit {
     private router: Router,
   ){}
 
+  goBack():void{
+    this.router.navigateByUrl('heroes/list')
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params
     .pipe(
-      delay(3000),
       switchMap(({id})=> this.heroesService.getHeroById(id)),
     )
     .subscribe(hero => {
