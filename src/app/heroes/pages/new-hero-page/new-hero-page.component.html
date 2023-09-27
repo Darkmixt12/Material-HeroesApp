@@ -13,7 +13,7 @@
 			<mat-card-content>
 
 				<!--! INICIO GRID-->
-				<form class="grid" [formGroup]="heroForm">
+				<form class="grid" [formGroup]="heroForm" (ngSubmit)="onSubmit()">
 
 				<mat-form-field class="col-12 sm:col-6">
 					<mat-label> Super Heroe</mat-label>
@@ -86,24 +86,28 @@
 	
 					<button
 					mat-flat-button
-					color="primary">
+					color="primary"
+					(click)="onSubmit()">
 					<mat-icon>save</mat-icon>
 						Guardar
 					</button>
 
 				</div>
 
-
-
 			</mat-card-content>
 		</mat-card>
-
+	</div>
 		<div class="col-12 sm:col-6">
 			<mat-card>
-				<img [src]="" alt="imagen del heroe">
+				<img [src]="currentHero | heroImage" alt="imagen del heroe">
 			</mat-card>
 			
-		</div>
+
 
 	</div>
 </div>
+
+<pre>
+	{{currentHero | json }}
+</pre>
+
