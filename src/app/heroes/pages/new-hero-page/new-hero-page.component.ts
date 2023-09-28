@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Hero, Publisher } from '../../interfaces/hero.interface';
 import { HeroesService } from '../../services/heroes.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { filter, pipe, switchMap, tap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
@@ -93,17 +93,28 @@ export class NewHeroPageComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: this.heroForm.value
     })
+    
+    dialogRef.afterClosed()
+    .pipe(
+      filter( (result : boolean) => result ),
+      switchMap( () => this.heroesService.deleteHeroById(this.currentHero.id)),
+      filter( (wasDeleted : boolean) => wasDeleted ),
+    )
+    .subscribe( () => {
+      this.router.navigate(['/heroes'])
+      
+    })
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (!result) return;
+    //dialogRef.afterClosed().subscribe(result => {
+    //if (!result) return;
+    
+    //this.heroesService.deleteHeroById(this.currentHero.id)
+    //  .subscribe(wasDeleted => {
+    //    if( wasDeleted)
+    //    this.router.navigate(['/heroes'])
+    //  })
 
-      this.heroesService.deleteHeroById(this.currentHero.id)
-      .subscribe(wasDeleted => {
-        if( wasDeleted)
-        this.router.navigate(['/heroes'])
-      })
-
-      })
+    //  })
       
       
 
@@ -114,3 +125,7 @@ export class NewHeroPageComponent implements OnInit {
     })
   }
 }
+function tab(arg0: (result: any) => void): import("rxjs").UnaryFunction<unknown, unknown> {
+  throw new Error('Function not implemented.');
+}
+
