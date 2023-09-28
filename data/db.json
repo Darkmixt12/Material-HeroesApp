@@ -13,7 +13,8 @@
       "publisher": "DC Comics",
       "alter_ego": "Bruce Wayne",
       "first_appearance": "Detective Comics #27",
-      "characters": "Bruce Wayne"
+      "characters": "Bruce Wayne",
+      "alt_img": null
     },
     {
       "id": "dc-superman",
@@ -168,15 +169,6 @@
       "alter_ego": "Norrin Radd",
       "first_appearance": "The Fantastic Four #48",
       "characters": "Norrin Radd"
-    },
-    {
-      "id": "WGKQIbR",
-      "superhero": "Yugo",
-      "publisher": "DC Comics",
-      "alter_ego": "The Wolf",
-      "first_appearance": "Comic Bloddy Roar  #1",
-      "characters": "Yugo ",
-      "alt_img": "https://pm1.aminoapps.com/7439/51b0c8edb62ba56ca97f8c63babeb6d3a759e81cr1-300-425v2_hq.jpg"
     }
   ]
 }

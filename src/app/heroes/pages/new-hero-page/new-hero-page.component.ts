@@ -5,6 +5,8 @@ import { HeroesService } from '../../services/heroes.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-new-hero-page',
@@ -33,7 +35,8 @@ export class NewHeroPageComponent implements OnInit {
     private heroesService: HeroesService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private snackbar : MatSnackBar 
+    private snackbar : MatSnackBar,
+    private dialog : MatDialog
     ){}
  
  
@@ -83,6 +86,28 @@ export class NewHeroPageComponent implements OnInit {
    // this.heroesService.updateHero(this.heroForm.value)
   }
 
+
+  onConfirmDeletion(){
+    if ( !this.currentHero.id) throw Error('Theres no here to delete')
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: this.heroForm.value
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) return;
+
+      this.heroesService.deleteHeroById(this.currentHero.id)
+      .subscribe(wasDeleted => {
+        if( wasDeleted)
+        this.router.navigate(['/heroes'])
+      })
+
+      })
+      
+      
+
+  }
   showSnackBar( message: string):void{
     this.snackbar.open(message, 'done', {
       duration: 2500,
