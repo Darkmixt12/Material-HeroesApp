@@ -1,7 +1,8 @@
 <h1>
-	Editar / Agregar
-	Hero
-	<small> SuperMan</small>
+	{{ currentHero.id ? 'Editar' : 'Agregar'}}
+	Heroe
+	<br>
+<small *ngIf="currentHero.id "> {{currentHero.superhero}}</small>
 </h1>
 
 
@@ -80,14 +81,17 @@
 
 					<button
 					mat-flat-button
-					color="warn">
+					color="warn"
+					*ngIf="currentHero.id">
 						Borrar
 					</button>
+					<span></span>
 	
 					<button
 					mat-flat-button
 					color="primary"
 					(click)="onSubmit()">
+					
 					<mat-icon>save</mat-icon>
 						Guardar
 					</button>
