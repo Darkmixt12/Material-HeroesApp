@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanMatch, Route, Router, RouterStateSnapshot, UrlSegment } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { Observable, tap, map } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 
 @Injectable({providedIn: 'root'})
-export class AuthGuard implements CanMatch, CanActivate{
+export class PublicGuard implements CanMatch, CanActivate{
 
 
 	constructor(
@@ -18,10 +18,11 @@ export class AuthGuard implements CanMatch, CanActivate{
 		return this.authService.cheackAuthentication()
 		.pipe(
 			tap( isAuthenticated => {
-				if(!isAuthenticated){
-					this.router.navigate(['./auth/login'])
-				}
-			})
+				if(isAuthenticated)
+					this.router.navigate(['./heroes/list'])
+				
+			}),
+			map( isAuthenticated => !isAuthenticated)
 		)
 	}
 
