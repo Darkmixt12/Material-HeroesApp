@@ -1,2 +1,3 @@
 A few lines
 try to do more push ups
+trabaje en el nx y el nvm
